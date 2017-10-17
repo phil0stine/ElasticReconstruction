@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+//#include "StdAfx.h"
 #include "OptApp.h"
 #include <boost/filesystem.hpp>
 #include <g2o/types/slam3d/edge_se3.h>
@@ -9,11 +9,12 @@
 #include "vertigo/vertex_switchLinear.h"
 #include "vertigo/edge_switchPrior.h"
 #include "vertigo/edge_se3Switchable.h"
+#include <unordered_map>
 
 typedef g2o::BlockSolver< g2o::BlockSolverTraits<6, 3> >  SlamBlockSolver;
 typedef g2o::LinearSolverCSparse<SlamBlockSolver::PoseMatrixType> SlamLinearCSparseSolver;
 typedef g2o::LinearSolverPCG<SlamBlockSolver::PoseMatrixType> SlamLinearPCGSolver;
-typedef std::tr1::unordered_map<int, g2o::HyperGraph::Vertex*>     VertexIDMap;
+typedef std::unordered_map<int, g2o::HyperGraph::Vertex*>     VertexIDMap;
 typedef std::pair<int, g2o::HyperGraph::Vertex*> VertexIDPair;
 typedef std::set<g2o::HyperGraph::Edge*> EdgeSet;
 

@@ -4,3 +4,7 @@
 /x64/
 *.asv
 GlobalRegistration/x64/
+*/build/*
+bin/*
+*~
+*#

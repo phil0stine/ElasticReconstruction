@@ -1,7 +1,7 @@
-#include "StdAfx.h"
+//#include "StdAfx.h"
 #include "IntegrateApp.h"
 
-
+using namespace std;
 CIntegrateApp::CIntegrateApp( pcl::Grabber & source, bool use_device )
 	: cols_( 640 ), rows_( 480 )
 	, volume_( cols_, rows_ )

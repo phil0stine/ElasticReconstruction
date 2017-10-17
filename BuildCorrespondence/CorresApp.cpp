@@ -1,9 +1,10 @@
-#include "StdAfx.h"
+//#include "StdAfx.h"
 #include "CorresApp.h"
 #include <pcl/registration/icp.h>
 #include <pcl/registration/transformation_estimation_point_to_plane_lls.h>
 #include <omp.h>
 #include <boost/filesystem.hpp>
+#include <string>
 
 CCorresApp::CCorresApp(void)
 	: save_xyzn_( false )
@@ -35,7 +36,7 @@ void CCorresApp::LoadData( std::string filename, int num )
 		c = strrchr( filename.c_str(), '/' );
 	}
 	memset( m_pDirName, 0, 1024 );
-	strncat_s( m_pDirName, 1024, filename.c_str(), c - filename.c_str() + 1 );
+        std::strncat( m_pDirName, filename.c_str(), c - filename.c_str() + 1 );
 
 	if ( num > 0 ) {
 		RGBDTrajectory temp;
@@ -91,7 +92,7 @@ void CCorresApp::LoadData( std::string filename, int num )
 			PCL_ERROR( "Error loading file.\n" );
 		}
 		for ( int j = 0; j < ( int )rawpcd->points.size(); j++ ) {
-			if ( !_isnan( rawpcd->points[ j ].normal_x ) ) {
+                        if ( !std::isnan( rawpcd->points[ j ].normal_x ) ) {
 				pcd->push_back( rawpcd->points[ j ] );
 			}
 		}
@@ -281,7 +282,7 @@ void CCorresApp::Registration()
 		}
 
 		if ( redux_ ) {
-			stdext::hash_map< int, int >::iterator it = redux_map_.find( GetReduxIndex( corres_traj_.data_[ i ].id1_, corres_traj_.data_[ i ].id2_ ) );
+			std::unordered_map< int, int >::iterator it = redux_map_.find( GetReduxIndex( corres_traj_.data_[ i ].id1_, corres_traj_.data_[ i ].id2_ ) );
 
 			if ( it != redux_map_.end() ) {
 				corres_traj_.data_[ i ].transformation_ = redux_traj_.data_[ it->second ].transformation_;
@@ -306,9 +307,9 @@ void CCorresApp::Registration()
 		icp.align( *transformed, corres_traj_.data_[ i ].transformation_.cast<float>() );
 		PCL_INFO( "    <%d, %d> : ICP fitness score is %.6f\n", corres_traj_.data_[ i ].id1_, corres_traj_.data_[ i ].id2_, icp.getFitnessScore() );
 		PCL_INFO( "    Matrix from : \n" );
-		cout << corres_traj_.data_[ i ].transformation_ << endl;
+                std::cout << corres_traj_.data_[ i ].transformation_ << std::endl;
 		PCL_INFO( "    To : \n" );
-		cout << icp.getFinalTransformation() << endl;
+                std::cout << icp.getFinalTransformation() << std::endl;
 		corres_traj_.data_[ i ].transformation_ = icp.getFinalTransformation().cast<double>();
 
 		#pragma omp atomic

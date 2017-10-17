@@ -21,7 +21,7 @@ struct SampledScopeTime : public pcl::StopWatch
 		static int i_ = 0; 
 		time_ms_ += pcl::StopWatch::getTime ();
 		if ( i_ % EACH == 0 && i_ ) {
-			cout << "Average frame time = " << time_ms_ / EACH << "ms ( " << 1000.f * EACH / time_ms_ << "fps )" << endl;
+                  std::cout << "Average frame time = " << time_ms_ / EACH << "ms ( " << 1000.f * EACH / time_ms_ << "fps )" << std::endl;
 			time_ms_ = 0;        
 		}
 		++i_;

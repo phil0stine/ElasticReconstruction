@@ -1,7 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "external/Eigen/Core"
+#include <Eigen/Core>
+//#include "external/Eigen/Core"
 
 struct Point {
 public:
